@@ -1,0 +1,31 @@
+#!/bin/bash
+#
+# Launch a container to launch RSpec tests.
+#
+# This container can be used as an ephemeral environment to launch the tests of
+# the library:
+#
+#   In the host:
+#     $ bin/ruby-container
+#
+#   In the container:
+#     $ bundle install
+#     $ bundle exec rspec
+
+set -euo pipefail
+
+: "${CONTAINER_ENGINE:=docker}"
+
+GIT_ROOT=$(git rev-parse --show-toplevel)
+
+exec "$CONTAINER_ENGINE"    \
+  run                       \
+  --rm                      \
+  --user "$UID"             \
+  --tty                     \
+  --interactive             \
+  --env HOME=/tmp           \
+  --volume "$GIT_ROOT:/git" \
+  --workdir /git            \
+  ruby:3-slim               \
+  bash
