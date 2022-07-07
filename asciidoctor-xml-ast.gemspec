@@ -11,8 +11,16 @@ Gem::Specification.new do |s|
     nodes from a parsed document.
   DESC
 
-  s.files = Dir["README.md", "lib/*.rb"]
+  s.files = Dir[
+    "README.md",
+    "bin/asciidoctor-xml-ast",
+    "lib/*.rb"
+  ]
+
+  s.bindir = "bin"
   s.require_paths = %w(lib)
+
+  s.executables = %w(asciidoctor-xml-ast)
 
   s.add_runtime_dependency "asciidoctor", "~> 2.0"
 end

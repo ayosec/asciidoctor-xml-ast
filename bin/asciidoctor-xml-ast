@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+require "asciidoctor"
+require "asciidoctor/cli"
+
+lib = File.expand_path("../../lib/asciidoctor-xml-ast.rb", __FILE__)
+if not File.exist?(lib)
+  lib = "asciidoctor-xml-ast"
+end
+
+args = %W(--require #{lib} --backend xml-ast) + ARGV
+
+invoker = Asciidoctor::Cli::Invoker.new(args)
+invoker.invoke!
+exit invoker.code
