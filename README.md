@@ -9,14 +9,14 @@ The converter is available as a Ruby gem, and can be installed with the
 following command:
 
 ```console
-$ gem install asciidoctor-ast-xml
+$ gem install asciidoctor-xml-ast
 ```
 
 Then, add the options `--require asciidoctor-ast-xml` and `--backend xml-ast`.
 For example:
 
 ```console
-$ asciidoctor -r asciidoctor-ast-xml -b xml-ast document.adoc
+$ asciidoctor -r asciidoctor-xml-ast -b xml-ast document.adoc
 ```
 
 In the previous command, the output will be in the `document.ast.xml` file.
