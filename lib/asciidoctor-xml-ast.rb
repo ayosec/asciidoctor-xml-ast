@@ -29,13 +29,21 @@ class AstConverter
       end
     end
 
+    if transform == "table" and node.title?
+      attributes << %[ table-caption="#{node.captioned_title}"]
+    end
+
     # Element body.
     result = []
 
     result << "<#{element_name}#{attributes.join}>"
 
-    if node.respond_to?(:text)
+    if node.respond_to?(:text) and transform != "table_cell"
       result << node.text
+    end
+
+    if transform == "table"
+      convert_table(result, node)
     end
 
     if node.block?
@@ -44,6 +52,24 @@ class AstConverter
 
     result << "</#{element_name}>"
     result.join
+  end
+
+  def convert_table(result, node)
+    node.rows.to_h.each do |section, rows|
+      next if rows.empty?
+
+      section_element = "table-#{section}"
+
+      result << "<#{section_element}>"
+      rows.each do |row|
+        result << "<table-row>"
+        row.each do |cell|
+          result << cell.convert
+        end
+        result << "</table-row>"
+      end
+      result << "</#{section_element}>"
+    end
   end
 
   def append_content(result, content)
