@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = "asciidoctor-xml-ast"
-  s.version     = "0.1.0"
+  s.version     = "0.2.0"
   s.licenses    = %w(MIT)
   s.authors     = %w(ayosec)
   s.homepage    = "https://github.com/ayosec/asciidoctor-xml-ast"
