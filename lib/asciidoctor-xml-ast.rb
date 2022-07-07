@@ -23,7 +23,13 @@ class AstConverter
     end
 
     node.attributes.each_pair do |name, value|
-      if not value.nil?
+      next if value.nil?
+
+      Array(value).each do |value|
+        if value.kind_of?(Asciidoctor::Document::AttributeEntry)
+          value = value.value
+        end
+
         value = CGI.escapeHTML(value.to_s)
         attributes << %[ attr-#{name}="#{value}"]
       end
